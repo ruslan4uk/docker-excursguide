@@ -1,3 +1,0 @@
-[submodule "src/fontend"]
-	path = src/fontend
-	url = https://github.com/ruslan4uk/eg-front-nuxt.git

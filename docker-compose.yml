@@ -61,7 +61,7 @@ services:
     image: redis:5.0-alpine
     restart: always
     ports:
-      - 6379:6379
+      - 6370:6379 # 6379 in use reg ru server
     volumes:
       - ./storage/redis/data:/data
     command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
