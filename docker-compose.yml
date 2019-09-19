@@ -5,11 +5,12 @@ services:
     image: nginx:1.17
     restart: always
     ports:
-      # frontend
-#      - 80:80
-      - 443:443
       # backend
-      - 80:8000
+      - 8000:8000
+      # frontend
+      - 443:443
+      # nuxt nginx proxy
+      - 80:80
     working_dir: ${APP_PATH_CONTAINER}
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
@@ -39,12 +40,12 @@ services:
     volumes:
       - ${DB_PATH_HOST}:/var/lib/mysql
 
-#  composer:
-#    image: composer
-#    volumes:
-#      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-#    working_dir: ${APP_PATH_CONTAINER}/backend
-#    command: composer install
+  composer:
+    image: composer
+    volumes:
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    working_dir: ${APP_PATH_CONTAINER}/backend
+    command: composer install
 
 #  pm2:
 #    build: ./pm2
@@ -69,13 +70,14 @@ services:
     image: node:10.16.3-alpine
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-    working_dir: ${APP_PATH_CONTAINER}/backend
+    working_dir: ${APP_PATH_CONTAINER}/frontend
     ports:
       # broadcast
-      # sh -c "yarn install && yarn run dev && yarn run pm2 start laravel-echo-server.js"
-      - 6001:6001
+#      - 6001:6001
+      - 3000:3000
+    container_name: nuxt_app
     command: >
-      sh -c "node laravel-echo-server.js"
+      sh -c "yarn install && yarn run nuxt"
     depends_on:
       - redis
 
