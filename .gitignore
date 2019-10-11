@@ -1,0 +1,11 @@
+storage/mysql/data/*
+!storage/mysql/data/README.md
+
+storage/redis/data/*
+!storage/redis/data/README.md
+
+src/frontend
+src/backend
+src/echoServer/node_modules
+yarn-error.log
+.idea

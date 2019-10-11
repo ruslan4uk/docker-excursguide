@@ -18,14 +18,24 @@ RUN apt-get update && apt-get install -y \
         libxslt-dev \
         libicu-dev \
         libmcrypt-dev \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
         libwebp-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev libxpm-dev \
+        libfreetype6-dev \
         libzip-dev \
     && docker-php-ext-install -j$(nproc) iconv \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-webp-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-configure gd \
+        --with-gd \
+        --with-webp-dir \
+        --with-jpeg-dir \
+        --with-png-dir \
+        --with-zlib-dir \
+        --with-xpm-dir \
+        --with-freetype-dir \
+        --enable-gd-native-ttf \
+#        --with-freetype-dir=/usr/include/
+#        --with-jpeg-dir=/usr/include/
+#        --with-webp-dir=/usr/include/ \
     && docker-php-ext-install \
            gd \
            mysqli \

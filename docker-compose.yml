@@ -6,11 +6,11 @@ services:
     restart: always
     ports:
       # backend
-      - 8000:8000
+      - 8000:8080
       # frontend
       - 443:443
       # nuxt nginx proxy
-      - 80:80
+      - 80:3000
     working_dir: ${APP_PATH_CONTAINER}
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
@@ -67,7 +67,7 @@ services:
     command: ["sh", "-c", "exec redis-server --requirepass \"${REDIS_PASSWORD}\""]
 
   nodejs:
-    image: node:10.16.3-alpine
+    image: node:11.13.0-alpine
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
     working_dir: ${APP_PATH_CONTAINER}/frontend
@@ -77,16 +77,29 @@ services:
       - 3000:3000
     container_name: nuxt_app
     command: >
-      sh -c "yarn install && yarn run nuxt"
+      sh -c "yarn install && yarn run dev"
     depends_on:
       - redis
+    expose:
+      - 3000
+    environment:
+      ENV HOST: 0.0.0.0
+
+  echo:
+    image: node:11.13.0-alpine
+    volumes:
+      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    working_dir: ${APP_PATH_CONTAINER}/echoServer
+    expose:
+      - 6001
+    ports:
+      - 6001:6001
+    command: >
+      sh -c "yarn install && node laravel-echo-server.js"
+
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8081:8080
-
-
-
-
