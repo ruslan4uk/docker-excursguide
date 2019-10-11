@@ -14,7 +14,7 @@ services:
     working_dir: ${APP_PATH_CONTAINER}
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ${CONFIG_NGINX}:/etc/nginx/nginx.conf
 
   php:
     build: ./php
@@ -72,8 +72,6 @@ services:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
     working_dir: ${APP_PATH_CONTAINER}/frontend
     ports:
-      # broadcast
-#      - 6001:6001
       - 3000:3000
     container_name: nuxt_app
     command: >
