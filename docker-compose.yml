@@ -40,12 +40,12 @@ services:
     volumes:
       - ${DB_PATH_HOST}:/var/lib/mysql
 
-  composer:
-    image: composer
-    volumes:
-      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-    working_dir: ${APP_PATH_CONTAINER}/backend
-    command: composer install
+#  composer:
+#    image: composer
+#    volumes:
+#      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+#    working_dir: ${APP_PATH_CONTAINER}/backend
+#    command: composer install
 
 #  pm2:
 #    build: ./pm2
