@@ -47,7 +47,6 @@ RUN pecl install redis \
     && docker-php-ext-enable mcrypt \
     && docker-php-ext-enable redis xdebug
 
-
 RUN curl -sS https://getcomposer.org/installer | \
             php -- --install-dir=/usr/bin/ --filename=composer
 
