@@ -1,20 +1,54 @@
 version: '3'
 
 services:
-  nginx:
-    image: nginx:1.17
-    restart: always
+  # test
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: jwilder/nginx-proxy
     ports:
       # backend
       - 8000:8080
       # frontend
-      - 443:443
+      - 443:3000
       # nuxt nginx proxy
       - 80:3000
-    working_dir: ${APP_PATH_CONTAINER}
     volumes:
-      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-      - ${CONFIG_NGINX}:/etc/nginx/nginx.conf
+      - certs:/etc/nginx/certs
+      - nginx:/etc/nginx/vhost.d
+      - src:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  nginx-proxy-letsencrypt:
+    container_name: nginx-proxy-letsencrypt
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes:
+      - certs:/etc/nginx/certs
+      - nginx:/etc/nginx/vhost.d
+      - src:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+
+  # End test
+
+  nginx:
+    image: nginx:1.17
+    restart: always
+#    ports:
+      # backend
+#      - 8000:8080
+      # frontend
+#      - 443:3000
+      # nuxt nginx proxy
+#      - 80:80
+#    working_dir: ${APP_PATH_CONTAINER}
+#    volumes:
+#      - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+#      - ${CONFIG_NGINX}:/etc/nginx/nginx.conf
+    environment:
+      - VIRTUAL_HOST=i001.ru
+      - LETSENCRYPT_HOST=i001.ru
+      - LETSENCRYPT_EMAIL=rusel91@idz.ru
 
   php:
     build: ./php
@@ -101,3 +135,9 @@ services:
     restart: always
     ports:
       - 8081:8080
+
+
+volumes:
+  certs:
+  nginx:
+  src:

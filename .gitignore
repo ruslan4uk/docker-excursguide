@@ -9,3 +9,5 @@ src/backend
 src/echoServer/node_modules
 yarn-error.log
 .idea
+
+ssl/*
