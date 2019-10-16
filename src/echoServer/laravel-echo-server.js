@@ -2,7 +2,7 @@ let echo = require('laravel-echo-server');
 
 echo.run(
     {
-        "authHost": "http://nginx:8080",
+        "authHost": "http://nginx",
         "authEndpoint": "/api/broadcasting/auth",
         "clients": [
             {
