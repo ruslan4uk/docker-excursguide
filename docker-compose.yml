@@ -37,7 +37,6 @@ services:
       - ${CONFIG_NGINX}:/etc/nginx/nginx.conf
     environment:
       - VIRTUAL_HOST=api.${SERVER_HOST}
-      - HTTPS_METHOD=redirect
       - LETSENCRYPT_HOST=api.${SERVER_HOST}
       - LETSENCRYPT_EMAIL=rusel91@idz.ru
 
@@ -85,7 +84,6 @@ services:
     environment:
       - ENV_HOST:0.0.0.0
       - VIRTUAL_HOST=${SERVER_HOST}
-      - HTTPS_METHOD=redirect
       - LETSENCRYPT_HOST=${SERVER_HOST}
       - LETSENCRYPT_EMAIL=rusel91@idz.ru
 
