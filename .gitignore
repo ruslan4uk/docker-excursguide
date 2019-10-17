@@ -6,6 +6,7 @@ storage/redis/data/*
 
 src/frontend
 src/backend
+src/eg_admin
 src/echoServer/node_modules
 yarn-error.log
 .idea

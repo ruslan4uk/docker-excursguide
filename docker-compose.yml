@@ -76,7 +76,7 @@ services:
     ports:
       - 3000:3000
     command: >
-      sh -c "yarn install && yarn run dev"
+      sh -c "yarn install && yarn run build && yarn run start"
     depends_on:
       - redis
     expose:
@@ -86,6 +86,7 @@ services:
       - VIRTUAL_HOST=${SERVER_HOST}
       - LETSENCRYPT_HOST=${SERVER_HOST}
       - LETSENCRYPT_EMAIL=rusel91@idz.ru
+
 
   echo:
     image: node:11.13.0-alpine
