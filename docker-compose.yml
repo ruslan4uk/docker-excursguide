@@ -92,9 +92,10 @@ services:
     container_name: echo_app
     volumes:
       - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+      - ./.env:${APP_PATH_CONTAINER}/echoServer/.env
     working_dir: ${APP_PATH_CONTAINER}/echoServer
-    expose:
-      - 6001
+#    expose:
+#      - 6001
     ports:
       - 6001:6001
     command: >
