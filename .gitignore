@@ -11,4 +11,6 @@ src/echoServer/node_modules
 yarn-error.log
 .idea
 
+.env
+
 ssl/*
