@@ -102,7 +102,7 @@ services:
       sh -c "yarn install && node laravel-echo-server.js"
     environment:
       - VIRTUAL_HOST=ws.${SERVER_HOST}
-      - VIRTUAL_PORT=6001
+#      - VIRTUAL_PORT=6001
       - LETSENCRYPT_HOST=ws.${SERVER_HOST}
       - LETSENCRYPT_EMAIL=rusel91@idz.ru
 
